@@ -13,11 +13,13 @@ struct HomeScreen: View {
 
     var body: some View {
       ZStack{
-        VStack(alignment: .leading) {
+        VStack(alignment: .center) {
             Text("Time Period")
                 .font(.callout)
                 .bold()
-            TextField("Enter Time...", text: $enteredPeriod)
+            TextField("Enter Time...", text: $enteredPeriod).padding(.all, 20)
+                .overlay(RoundedRectangle(cornerRadius: 5.0).strokeBorder(Color.blue, style: StrokeStyle(lineWidth: 1.0)))
+                .padding()
             Button("Save") {
                 ReminderManager().requestAuthorization { (authorized) in
                     if authorized {
@@ -25,7 +27,7 @@ struct HomeScreen: View {
                         ReminderManager().scheduleReminder(request: request!)
                     }
                 }
-            }
+            }.background(Color.black).foregroundColor(Color.white)
             .disabled(enteredPeriod.isEmpty ? true : false)
             .padding()
 
